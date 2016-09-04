@@ -16,10 +16,7 @@ namespace Publish_Subscribe_Channel
             Console.ReadLine();
         }
     }
-
-    public class Symbol { }
-    public class Money { }
-    public class Market { }
+    
     public class PricedQuote { }
 
     public class QuoteListener : ReceiveActor

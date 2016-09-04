@@ -11,7 +11,7 @@ namespace Message_Bridge
             {
                 var inventoryProductAllocationBridge =
                     system.ActorOf<InventoryProductAllocationBridge>("inventoryProductAllocationBridge");
-                inventoryProductAllocationBridge.Tell(new RabbitMQTextMessage {Message = "Rabbit test message"});
+                inventoryProductAllocationBridge.Tell(new RabbitMQTextMessage("Rabbit test message"));
             }
             ReadLine();
         }
@@ -36,6 +36,11 @@ namespace Message_Bridge
 
     public class RabbitMQTextMessage
     {
-        public string Message { get; set; }
+        public string Message { get; }
+
+        public RabbitMQTextMessage(string message)
+        {
+            Message = message;
+        }
     }
 }

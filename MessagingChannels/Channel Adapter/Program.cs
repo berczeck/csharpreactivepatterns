@@ -27,12 +27,12 @@ namespace Channel_Adapter
             Receive<ExecuteBuyOrder>(x =>
             {
                 var result = buyerService.PlaceBuyOrder();
-                tradingBus.Tell(new TradingNotification {Type = "BuyOrderExecuted", Result = result});
+                tradingBus.Tell(new TradingNotification ("BuyOrderExecuted", result));
             });
             Receive<ExecuteSellOrder>(x =>
             {
                 var result = buyerService.PlaceBuyOrder();
-                tradingBus.Tell(new TradingNotification { Type = "SellOrderExecuted", Result = result});
+                tradingBus.Tell(new TradingNotification ("SellOrderExecuted", result));
             });
 
             tradingBus.Tell(new RegisterCommandHandler());
@@ -49,15 +49,23 @@ namespace Channel_Adapter
         }
     }
 
-    public class ServiceResult {
-        public int Value { get; set; } }
+    public class ServiceResult
+    {
+        public int Value { get;  }
+
+        public ServiceResult(int value)
+        {
+            Value = value;
+        }
+    }
+
     public class BuyerService
     {
-        public ServiceResult PlaceBuyOrder() => new ServiceResult {Value = 100};
+        public ServiceResult PlaceBuyOrder() => new ServiceResult (100);
     }
     public class SellerService
     {
-        public ServiceResult PlaceSellOrder() => new ServiceResult { Value = 200 };
+        public ServiceResult PlaceSellOrder() => new ServiceResult (200);
     }
     public class RegisterCommandHandler { }
     public class Command { }
@@ -69,7 +77,13 @@ namespace Channel_Adapter
 
     public class TradingNotification
     {
-        public string Type { get; set; }
-        public ServiceResult Result { get; set; }
+        public string Type { get; }
+        public ServiceResult Result { get; }
+
+        public TradingNotification(string type, ServiceResult result)
+        {
+            Type = type;
+            Result = result;
+        }
     }
 }

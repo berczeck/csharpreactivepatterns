@@ -23,12 +23,21 @@ namespace Invalid_Message_Channel
 
     public class ProcessIncomingOrder
     {
-        public byte[] Message { get; set; }
+        public byte[] Message { get; }
+
+        public ProcessIncomingOrder(byte[] message)
+        {
+            Message = message;
+        }
     }
 
     public class InvalidMessage
     {
-        public object Message { get; set; }
+        public object Message { get; }
+        public InvalidMessage(object message)
+        {
+            Message = message;
+        }
     }
 
     public class InvalidMessageChannel : ReceiveActor
@@ -48,9 +57,9 @@ namespace Invalid_Message_Channel
                 var text = Encoding.Default.GetString(x.Message);
                 Console.WriteLine($"Decrypter: processing {text}");
                 var orderText = text.Replace("(encryption)", string.Empty);
-                nextFilter.Tell(new ProcessIncomingOrder {Message = Encoding.Default.GetBytes(orderText)});
+                nextFilter.Tell(new ProcessIncomingOrder (Encoding.Default.GetBytes(orderText)));
             });
-            ReceiveAny(x => invalidMessageChannel.Tell(new InvalidMessage {Message = x}));
+            ReceiveAny(x => invalidMessageChannel.Tell(new InvalidMessage (x)));
         }
     }
 
