@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Util.Internal;
 
@@ -19,11 +20,17 @@ namespace Message_Bus
                     "portfolioManager");
                 var stockTrader = system.ActorOf(Props.Create(() => new StockTrader(tradingBus)), "stockTrader");
 
-                tradingBus.Tell(new Status());
+                var t1 = marketAnalysisTools.Ask(new Start());
+                var t2 = portfolioManager.Ask(new Start());
+                var t3 = stockTrader.Ask(new Start());
 
-                tradingBus.Tell(new TradingCommand { CommandId = "ExecuteBuyOrder" });
-                tradingBus.Tell(new TradingCommand { CommandId = "ExecuteSellOrder" });
-                tradingBus.Tell(new TradingCommand { CommandId = "ExecuteBuyOrder" });
+                Task.WaitAll(t1, t2, t3);
+                
+                tradingBus.Tell(new Status());
+                
+                tradingBus.Tell(new TradingCommand { CommandId = "ExecuteBuyOrder", Command = new ExecuteBuyOrder()});
+                tradingBus.Tell(new TradingCommand { CommandId = "ExecuteSellOrder" , Command = new ExecuteSellOrder()});
+                tradingBus.Tell(new TradingCommand { CommandId = "ExecuteBuyOrder", Command = new ExecuteBuyOrder()});
             }
             Console.ReadLine();
         }
@@ -41,11 +48,22 @@ namespace Message_Bus
                 _commandHandlers.Add(x);
             });
 
-            Receive<RegisterNotificationInterest>(x => _notificationInterests.Add(x));
+            Receive<RegisterNotificationInterest>(x =>
+            {
+                _notificationInterests.Add(x);
+            });
 
-            Receive<TradingCommand>(x => _commandHandlers.Where(c => c.CommandId == x.CommandId).ForEach(c => c.Handler.Tell(x)));
+            Receive<TradingCommand>(x =>
+            {
+                var commands =_commandHandlers.Where(c => c.CommandId == x.CommandId).ToList();
+                commands.ForEach(c => c.Handler.Tell(x.Command));
+            });
 
-            Receive<TradingNotification>(x => _notificationInterests.Where(c => c.NotificationId == x.NotificationId).ForEach(c => c.Interested.Tell(x)));
+            Receive<TradingNotification>(x =>
+            {
+                var notifications = _notificationInterests.Where(c => c.NotificationId == x.NotificationId).ToList();
+                notifications.ForEach(c => c.Interested.Tell(x.Notification));
+            });
 
             Receive<Status>(x =>
             {
@@ -61,18 +79,21 @@ namespace Message_Bus
     {
         public StockTrader(IActorRef tradingBus)
         {
-            tradingBus.Tell(new RegisterCommandHandler { CommandId = "ExecuteBuyOrder", Handler = Self });
-            tradingBus.Tell(new RegisterCommandHandler { CommandId = "ExecuteSellOrder", Handler = Self });
-            
             Receive<ExecuteBuyOrder>(x =>
             {
                 Console.WriteLine($"StockTrader: buying for: {x}");
-                tradingBus.Tell(new TradingNotification { NotificationId = "BuyOrderExecuted" });
+                tradingBus.Tell(new TradingNotification {NotificationId = "BuyOrderExecuted", Notification = new BuyOrderExecuted()});
             });
             Receive<ExecuteSellOrder>(x =>
             {
                 Console.WriteLine($"StockTrader: selling for: {x}");
-                tradingBus.Tell(new TradingNotification { NotificationId = "SellOrderExecuted" });
+                tradingBus.Tell(new TradingNotification {NotificationId = "SellOrderExecuted", Notification = new SellOrderExecuted()});
+            });
+            Receive<Start>(x =>
+            {
+                tradingBus.Tell(new RegisterCommandHandler {CommandId = "ExecuteBuyOrder", Handler = Self});
+                tradingBus.Tell(new RegisterCommandHandler {CommandId = "ExecuteSellOrder", Handler = Self});
+                Sender.Tell("ok");
             });
         }
     }
@@ -81,11 +102,23 @@ namespace Message_Bus
     {
         public PortfolioManager(IActorRef tradingBus)
         {
-            tradingBus.Tell(new RegisterNotificationInterest { NotificationId = "BuyOrderExecuted", Interested = Self });
-            tradingBus.Tell(new RegisterNotificationInterest { NotificationId = "SellOrderExecuted", Interested = Self });
 
             Receive<BuyOrderExecuted>(x => Console.WriteLine($"PortfolioManager: adding holding: {x}"));
             Receive<SellOrderExecuted>(x => Console.WriteLine($"PortfolioManager: adjusting holding: {x}"));
+            Receive<Start>(x =>
+            {
+                tradingBus.Tell(new RegisterNotificationInterest
+                {
+                    NotificationId = "BuyOrderExecuted",
+                    Interested = Self
+                });
+                tradingBus.Tell(new RegisterNotificationInterest
+                {
+                    NotificationId = "SellOrderExecuted",
+                    Interested = Self
+                });
+                Sender.Tell("ok");
+            });
         }
     }
 
@@ -93,11 +126,22 @@ namespace Message_Bus
     {
         public MarketAnalysisTools(IActorRef tradingBus)
         {
-            tradingBus.Tell(new RegisterNotificationInterest { NotificationId = "BuyOrderExecuted", Interested = Self });
-            tradingBus.Tell(new RegisterNotificationInterest { NotificationId = "SellOrderExecuted", Interested = Self });
-
             Receive<BuyOrderExecuted>(x => Console.WriteLine($"MarketAnalysisTools: adding holding: {x}"));
             Receive<SellOrderExecuted>(x => Console.WriteLine($"MarketAnalysisTools: adjusting holding: {x}"));
+            Receive<Start>(x =>
+            {
+                tradingBus.Tell(new RegisterNotificationInterest
+                {
+                    NotificationId = "BuyOrderExecuted",
+                    Interested = Self
+                });
+                tradingBus.Tell(new RegisterNotificationInterest
+                {
+                    NotificationId = "SellOrderExecuted",
+                    Interested = Self
+                });
+                Sender.Tell("ok");
+            });
         }
     }
 
@@ -122,7 +166,19 @@ namespace Message_Bus
         public string NotificationId { get; set; }
         public IActorRef Interested { get; set; }
     }
-    public class TradingCommand : TradingBusMessage { public string CommandId { get; set; } }
-    public class TradingNotification : TradingBusMessage { public string NotificationId { get; set; } }
+
+    public class TradingCommand : TradingBusMessage
+    {
+        public string CommandId { get; set; }
+        public Command Command { get; set; }
+    }
+
+    public class TradingNotification : TradingBusMessage
+    {
+        public string NotificationId { get; set; }
+        public Notification Notification { get; set; }
+    }
+
     public class Status : TradingBusMessage { }
+    public class Start { }
 }
