@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content-Based Router", "Content-Based Router\Content-Based Router.csproj", "{73CAD753-20AB-494D-91D9-57D98342F713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Message Filter", "Message Filter\Message Filter.csproj", "{CDC9CC84-C2B9-4DAC-B0C4-1DE55E881448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamic Router", "Dynamic Router\Dynamic Router.csproj", "{D0809601-354E-4A2E-8FC0-C862C2C40535}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73CAD753-20AB-494D-91D9-57D98342F713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73CAD753-20AB-494D-91D9-57D98342F713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73CAD753-20AB-494D-91D9-57D98342F713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73CAD753-20AB-494D-91D9-57D98342F713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC9CC84-C2B9-4DAC-B0C4-1DE55E881448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC9CC84-C2B9-4DAC-B0C4-1DE55E881448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC9CC84-C2B9-4DAC-B0C4-1DE55E881448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC9CC84-C2B9-4DAC-B0C4-1DE55E881448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
