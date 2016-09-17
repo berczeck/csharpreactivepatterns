@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Message Filter", "Message F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamic Router", "Dynamic Router\Dynamic Router.csproj", "{D0809601-354E-4A2E-8FC0-C862C2C40535}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipient List", "Recipient List\Recipient List.csproj", "{7711E227-2975-4A58-9F6E-308D0029D973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0809601-354E-4A2E-8FC0-C862C2C40535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7711E227-2975-4A58-9F6E-308D0029D973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7711E227-2975-4A58-9F6E-308D0029D973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7711E227-2975-4A58-9F6E-308D0029D973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7711E227-2975-4A58-9F6E-308D0029D973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
