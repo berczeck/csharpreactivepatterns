@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamic Router", "Dynamic R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipient List", "Recipient List\Recipient List.csproj", "{7711E227-2975-4A58-9F6E-308D0029D973}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Splitter", "Splitter\Splitter.csproj", "{A7FB334A-6961-439D-BC01-EEE8F502A82E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7711E227-2975-4A58-9F6E-308D0029D973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7711E227-2975-4A58-9F6E-308D0029D973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7711E227-2975-4A58-9F6E-308D0029D973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FB334A-6961-439D-BC01-EEE8F502A82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FB334A-6961-439D-BC01-EEE8F502A82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FB334A-6961-439D-BC01-EEE8F502A82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FB334A-6961-439D-BC01-EEE8F502A82E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
