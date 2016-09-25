@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Splitter", "Splitter\Splitt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aggregator", "Aggregator\Aggregator.csproj", "{FE5B44B6-884A-4123-A2E1-916AC9069326}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resequencer", "Resequencer\Resequencer.csproj", "{96B44207-D04F-4348-A9A3-9350A2880689}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{FE5B44B6-884A-4123-A2E1-916AC9069326}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE5B44B6-884A-4123-A2E1-916AC9069326}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE5B44B6-884A-4123-A2E1-916AC9069326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B44207-D04F-4348-A9A3-9350A2880689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B44207-D04F-4348-A9A3-9350A2880689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B44207-D04F-4348-A9A3-9350A2880689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B44207-D04F-4348-A9A3-9350A2880689}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -99,6 +99,7 @@ namespace Aggregator
                 }
                 else
                 {
+                    FulfilledPriceQuotes.Remove(previousFulfillment);
                     FulfilledPriceQuotes.Add(currentFulfillment);
                 }
             });
@@ -137,7 +138,7 @@ namespace Aggregator
             {
                 rfq.RetailItems.ToList().ForEach(retailItem =>
                 {
-                    Console.WriteLine($"OrderProcessor: {rfq.Id} item: {retailItem.Id} to: {recipient.Path}");
+                    Console.WriteLine($"OrderProcessor:{rfq.Id} item: {retailItem.Id} to: {recipient.Path}");
                     recipient.Tell(new RequestPriceQuote(rfq.Id, retailItem.Id, retailItem.RetailPrice, rfq.TotalRetailPrice));
                 });
             });
@@ -349,7 +350,7 @@ namespace Aggregator
         public QuotationFulfillment Create(List<PriceQuote> priceQuotes) 
             => new QuotationFulfillment(Id, QuotesRequested, priceQuotes, Requester);
 
-        public override string ToString() => $"{Id} {QuotesRequested} {Requester}";
+        public override string ToString() => $"{nameof(Id)}:{Id} {nameof(QuotesRequested)}:{QuotesRequested} {nameof(Requester)}:{Requester}";
     }
     public class PriceQuote {
         public string Id { get; }
@@ -364,10 +365,8 @@ namespace Aggregator
             DiscountPrice = discountPrice;
         }
 
-        public override string ToString()
-        {
-            return $"{Id} {ItemId} {RetailPrice} {DiscountPrice}";
-        }
+        public override string ToString() 
+            => $"{nameof(Id)}:{Id} {nameof(ItemId)}:{ItemId} {nameof(RetailPrice)}:{RetailPrice} {nameof(DiscountPrice)}:{DiscountPrice}";
     }
     public class AggregatorMessage { }
     public class RequiredPriceQuotesForFulfillment : AggregatorMessage
@@ -387,7 +386,7 @@ namespace Aggregator
         {
             PriceQuote = priceQuote;
         }
-        public override string ToString() => PriceQuote.ToString();
+        public override string ToString() => $"{nameof(PriceQuote)}:{PriceQuote.ToString()}";
     }
     public class Start { }
 }
