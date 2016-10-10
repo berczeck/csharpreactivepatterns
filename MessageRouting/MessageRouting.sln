@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resequencer", "Resequencer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scatter-Gather", "Scatter-Gather\Scatter-Gather.csproj", "{D163AC47-A403-488E-A819-020222D1F14E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Routing Slip", "Routing Slip\Routing Slip.csproj", "{60289A2E-099C-43A4-90AB-EDD3FE0D0B00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{D163AC47-A403-488E-A819-020222D1F14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D163AC47-A403-488E-A819-020222D1F14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D163AC47-A403-488E-A819-020222D1F14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60289A2E-099C-43A4-90AB-EDD3FE0D0B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60289A2E-099C-43A4-90AB-EDD3FE0D0B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60289A2E-099C-43A4-90AB-EDD3FE0D0B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60289A2E-099C-43A4-90AB-EDD3FE0D0B00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
