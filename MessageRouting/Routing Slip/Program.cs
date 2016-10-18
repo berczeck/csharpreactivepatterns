@@ -8,9 +8,42 @@ namespace Routing_Slip
     {
         static void Main(string[] args)
         {
-            //TODO: Continuar con module ServiceRegistry =
+            using (var system = ActorSystem.Create("system"))
+            {
+                var contactKeeper =
+                    system.ActorOf<ContactKeeper>("contactKeeper");
+                var creditChecker =
+                    system.ActorOf<CreditChecker>("creditChecker");
+                var customerVault =
+                    system.ActorOf<CustomerVault>("customerVault");
+                var servicePlanner =
+                    system.ActorOf<ServicePlanner>("servicePlanner");
+
+                var processId = Guid.NewGuid();
+                var step1 = new ProcessStep("create_customer", customerVault);
+                var step2 = new ProcessStep("set_up_contact_info", contactKeeper);
+                var step3 = new ProcessStep("select_service_plan", servicePlanner);
+                var step4 = new ProcessStep("check_credit", creditChecker);
+
+                var registrationProcess =
+                    RegistrationProcess.Create(processId.ToString(), new List<ProcessStep> { step1, step2, step3, step4 });
+
+                var registrationData = new RegistrationData(
+                    new CustomerInformation("ABC, Inc.", "123-45-6789"),
+                    new ContactInformation(new PostalAddress("123 Main Street", "Suite 100", "Boulder", "CO", "80301"), 
+                    new Telephone("303-555-1212")),
+                    new ServiceOption("99-1203", "A description of 99-1203."));
+
+                var registerCustomer = new RegisterCustomer(registrationData, registrationProcess);
+
+                registrationProcess.NextStep().Processor.Tell(registerCustomer);
+
+                Console.ReadLine();
+
+            }
         }
     }
+
     public class ServicePlanner : ReceiveActor
     {
         public ServicePlanner()
@@ -96,7 +129,7 @@ namespace Routing_Slip
             }
         }
         public RegistrationProcess StepCompleted() 
-            => new RegistrationProcess(ProcessId, ProcessSteps, CurrentStep++);
+            => new RegistrationProcess(ProcessId, ProcessSteps, ++CurrentStep);
         private RegistrationProcess(string processId, List<ProcessStep> processSteps, int currentStep)
         {
             ProcessId = processId;
